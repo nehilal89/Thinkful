@@ -29,7 +29,7 @@ con = lite.connect('getting_started.db')
 with con:
 	cur = con.cursor()
 	cur.execute('''CREATE TABLE cities(name text, state text)''')
-	cur.execute('''CREATE TABLE weather(City text, year integer, warm_month text, cold_month text, average_high integer)''')
+	cur.execute('''CREATE TABLE weather(city text, year integer, warm_month text, cold_month text, average_high integer)''')
 
 """inserting values into cities"""
 
@@ -75,7 +75,7 @@ with con:
 	cur = con.cursor()
 	cur.executemany("INSERT INTO weather VALUES(?,?,?,?,?)", weather)
 
-"""Join the data together"""
+"""Join the data together and Load into a pandas DataFrame"""
 import sqlite3 as lite
 import pandas as pd
 
@@ -90,6 +90,21 @@ with con:
 	cols = [desc[0] for desc in cur.description]
 	df = pd.DataFrame(rows, columns=cols)
 	
+"""Print out the resulting city and state in a full
+sentence. For example: "The cities that are
+ warmest in July are: Las Vegas, NV, Atlanta, 
+ GA..."""
+
+ """can i put import within a function"""
+
+import sqlite3 as lite
+
+con = lite.connect('getting_started.db')
+
+with con:
+	cur = con.cursor()
+	x = cur.execute("SELECT max(average_high), city from weather where warm_month like 'jul%' ")
+	print "The cities that are warmest in July are: %s" % (x)
 
 
 
