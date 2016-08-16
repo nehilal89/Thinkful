@@ -100,9 +100,13 @@ con = lite.connect('getting_started.db')
 
 with con:
 	cur = con.cursor()
-	x = cur.execute("SELECT max(average_high), city from weather where warm_month == 'july' ")
+	cur.execute("SELECT average_high, city from weather where warm_month == 'july' ")
 	'''print "The cities that are warmest in July are: %s" % x'''
+	x = cur.fetchall()
 	print(x)
+
+
+
 
 
 
