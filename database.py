@@ -94,17 +94,15 @@ with con:
 sentence. For example: "The cities that are
  warmest in July are: Las Vegas, NV, Atlanta, 
  GA..."""
-
- """can i put import within a function"""
-
 import sqlite3 as lite
 
 con = lite.connect('getting_started.db')
 
 with con:
 	cur = con.cursor()
-	x = cur.execute("SELECT max(average_high), city from weather where warm_month like 'jul%' ")
-	print "The cities that are warmest in July are: %s" % (x)
+	x = cur.execute("SELECT max(average_high), city from weather where warm_month == 'july' ")
+	'''print "The cities that are warmest in July are: %s" % x'''
+	print(x)
 
 
 
