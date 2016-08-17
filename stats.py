@@ -82,3 +82,18 @@ x = mean + (z_score * std)
 
 print("Number of days that correspond to 2.3 z-score: {0}".format(x))
 
+"""Plotting Probability distributions"""
+"""Normal probability distribution"""
+
+import matplotlib.pyplot as plt 
+import numpy as np 
+import matplotlib.mlab as mlab
+
+mean = 0
+variance = 1
+sigma = np.sqrt(variance)
+x = np.linspace(-3,3,100)
+plt.plot(x, mlab.normpdf(x,mean,sigma))
+
+plt.show()
+
