@@ -4,27 +4,33 @@ loansData = pd.read_csv('https://github.com/Thinkful-Ed/curric-data-001-data-set
 
 loanamt = loansData['Amount.Requested']
 
+"""Cleaning data"""
+
 intrt = loansData['Interest.Rate'].map(lambda x: round(float(x.rstrip('%')) / 100, 4))
 
 loanl = loansData['Loan.Length'].map(lambda x: int(x.rstrip('months')))
 
 
-"""Convert FICO scores into a numerical value, 
-and save it in a new column called FICO.Score"""
+"""Cleaning FICO ranges into a numerical value, 
+and saving it in a new column called FICO.Score"""
 
 loansData['FICO.Score'] = loansData['FICO.Range'].map(lambda x: x.split('-'))
 
-loansData['FICO.Score'] = loansData['FICO.Score'].map(lambda x: [float(n) for n in x])
+loansData['FICO.Score'] = loansData['FICO.Score'].map(lambda x: [int(n) for n in x])
+
+loansData['FICO.Range'] = loansData['FICO.Score']
 
 fico = loansData['FICO.Score']
 
+loansData.to_csv('loansData_clean.csv', header=True, index=False)
+
 """Histogram for FICO_Score"""
 
-'''import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt 
 
 plt.figure()
 p = loansData['FICO.Score'].hist()
-plt.show()'''
+plt.show()
 
 """Scatter plot of loansData"""
 
