@@ -16,9 +16,7 @@ and saving it in a new column called FICO.Score"""
 
 loansData['FICO.Score'] = loansData['FICO.Range'].map(lambda x: x.split('-'))
 
-loansData['FICO.Score'] = loansData['FICO.Score'].map(lambda x: [int(n) for n in x])
-
-loansData['FICO.Range'] = loansData['FICO.Score']
+loansData['FICO.Score'] = loansData['FICO.Score'].map(lambda x: int(min(x)))
 
 fico = loansData['FICO.Score']
 
@@ -46,32 +44,26 @@ a linear model with two independent variables:
 FICO Score and Loan Amount. This will help us 
 determine the dependent variable, Interest Rate."""
 
-'''Linear model
-InterestRate = b + a1(FICOScore) + a2(LoanAmount)'''
 
 import numpy as np 
 import pandas as pd 
 import statsmodels.api as sm 
 
-intrt = loansData['Interest.Rate']
 loanamt = loansData['Amount.Requested']
-fico = loansData['FICO.Score']
 
-'''Reshaping data using transpose'''
 y = np.matrix(intrt).transpose()
 
 x1 = np.matrix(fico).transpose()
 
 x2 = np.matrix(loanamt).transpose()
 
-'''Input matrix'''
 x = np.column_stack([x1,x2])
 
 X = sm.add_constant(x)
 model = sm.OLS(y,X)
 f = model.fit()
 
-f.summary()
+print(f.summary())
 
 
 
