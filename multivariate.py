@@ -10,10 +10,12 @@ import pandas as pd
 
 import numpy as np 
 
+import statsmodels.api as sm 
 
-lending_data = pd.read_csv('https://github.com/Thinkful-Ed/curric-data-001-data-sets/blob/master/loans/loansData.csv')
 
-intrt = lending_data['Interest.Rate'].map(lambda x: round(float(x.rstrip('%')) / 100, 4))
+lending_data = pd.read_csv('https://github.com/Thinkful-Ed/curric-data-001-data-sets/blob/master/loans/loansData.csv', sep='delimiter', header=None)
+
+int_rate = lending_data["Interest.Rate"].map(lambda x: float(x.rstrip('%')))
 
 loanl = lending_data['Loan.Length'].map(lambda x: int(x.rstrip('months')))
 
@@ -25,18 +27,22 @@ fico = lending_data['FICO.Score']
 
 Inc = lending_data['Monthly.Income']
 
+loanamt = loansData['Amount.Requested']
+
 print(inc)
 
-"""Multiple Regression Analysis"""
-y = np.matrix(intrt).transpose()
+print(home_ownership)
+
+"""Multiple Linear Regression Analysis"""
+y = np.matrix("Interest.Rate").transpose()
 
 x1 = np.matrix(fico).transpose()
 
-x2 = np.matrix(loanl).transpose()
+x2 = np.matrix(loanamt).transpose()
 
 x3 = np.matrix(Inc).transpose()
 
-x4 = np.matrix(home_ownership).transpose()
+x4 = np.matrix(Home_Ownership).transpose()
 
 x = np.column_stack([x1,x2,x3,x4])
 
