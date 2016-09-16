@@ -36,11 +36,16 @@ x2 = np.matrix(loanl).transpose()
 
 x3 = np.matrix(Inc).transpose()
 
+x4 = np.matrix(home_ownership).transpose()
+
+x = np.column_stack([x1,x2,x3,x4])
+
 X = sm.add_constant(x)
 model = sm.OLS(y,X)
 f = model.fit()
 
 f.summary()
+
 
 
 
