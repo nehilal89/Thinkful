@@ -1,0 +1,20 @@
+import pandas as pd 
+import numpy as np 
+import statsmodels.api as sm
+import matplotlib.pylab as plt
+from statsmodels.graphics import utils
+from statsmodels.tsa.stattools import acf, pacf
+import statsmodels.formula.api as smf
+
+data = pd.read_csv('/users/nilu057/thinkful/LoanStats3b.csv', header=1, low_memory=False)
+
+data['issue_d_format'] = pd.to_datetime(data['issue_d']) 
+datafts = data.set_index('issue_d_format') 
+year_month_summary = datafts.groupby(lambda x : x.year * 100 + x.month).count()
+loan_count_summary = year_month_summary['issue_d']
+
+loan_count_summary_dif=loan_count_summary.diff()
+
+statsmodels.api.graphics.tsa.plot_acf(loan_count_summary_dif)
+statsmodels.api.graphics.tsa.plot_pacf(loan_count_summary_dif)
+
